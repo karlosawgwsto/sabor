@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produto</title>
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="./estilo.css" rel="stylesheet">
+    <!-- Seu CSS -->
+    <style>
+        .register-page {
+            min-height: 100vh;
+            padding: 48px 16px 64px;
+            background:
+                linear-gradient(135deg, rgba(49, 81, 31, 0.94), rgba(77, 112, 43, 0.88)),
+                url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80") center / cover no-repeat;
+        }
+
+        .register-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .register-card {
+            overflow: hidden;
+            border-radius: 22px;
+            background-color: var(--branco);
+            box-shadow: var(--sombra-forte);
+        }
+
+        .register-header {
+            padding: 34px 36px;
+            color: var(--branco);
+            background: linear-gradient(100deg, var(--verde-escuro), var(--verde-medio));
+        }
+
+        .register-header .register-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            height: 54px;
+            margin-bottom: 16px;
+            border-radius: 16px;
+            background-color: var(--lima);
+            color: var(--verde-escuro);
+        }
+
+        .register-header h1 {
+            margin: 0 0 8px;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(1.9rem, 3vw, 2.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .register-header p {
+            margin: 0;
+            max-width: 620px;
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 0.96rem;
+            line-height: 1.65;
+        }
+
+        .register-form {
+            padding: 34px 36px 40px;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 26px 0 18px;
+            color: var(--verde-escuro);
+            font-size: 1.02rem;
+            font-weight: 800;
+        }
+
+        .form-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .form-section-title i {
+            color: var(--verde-medio);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 4px 24px;
+        }
+
+        .form-grid .input-field {
+            margin: 0 0 18px;
+        }
+
+        .register-form input:not([type="file"]):not(.browser-default) {
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .register-form input:not([type="file"]):not(.browser-default):focus {
+            border-bottom: 1px solid var(--verde-medio);
+            box-shadow: 0 1px 0 0 var(--verde-medio);
+        }
+
+        .register-form input:not([type="file"]):not(.browser-default):focus + label {
+            color: var(--verde-medio);
+        }
+
+        .file-field .btn {
+            height: 44px;
+            border-radius: 9px;
+            background-color: var(--verde-medio);
+            font-weight: 800;
+        }
+
+        .file-field .btn:hover {
+            background-color: var(--verde);
+        }
+
+        .file-field .file-path-wrapper input {
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 4px 24px;
+        }
+
+        .form-hint {
+            margin: -8px 0 18px;
+            color: var(--texto-claro);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--borda);
+        }
+
+        .btn-cancel {
+            min-width: 145px;
+            height: 44px;
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            background-color: var(--branco);
+            color: var(--verde);
+            font-weight: 800;
+        }
+
+        .btn-cancel:hover {
+            background-color: var(--verde-claro);
+        }
+
+        .btn-full {
+            min-width: 210px;
+            height: 44px;
+            margin-top: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #c94f4f;
+            font-weight: 800;
+        }
+
+        @media (max-width: 700px) {
+            .register-page {
+                padding: 28px 12px 48px;
+            }
+
+            .register-header,
+            .register-form {
+                padding: 26px 20px 30px;
+            }
+
+            .form-grid,
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .btn-cancel,
+            .btn-full {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="register-page">
+        <div class="container register-container">
+            <section class="register-card">
+                <header class="register-header">
+                    <span class="register-icon">
+                        <i class="material-icons">inventory_2</i>
+                    </span>
+                    <h1>Cadastrar Produto</h1>
+                    <p>Preencha as informações abaixo para adicionar um novo produto ao catálogo da loja.</p>
+                </header>
+
+                <form id="formProduto" class="register-form" enctype="multipart/form-data" novalidate>
+                    <h2 class="form-section-title">
+                        <i class="material-icons">info</i>
+                        Informações do produto
+                    </h2>
+
+                    <div class="form-grid">
+                        <div class="input-field">
+                            <input id="name" type="text" name="name" class="validate" required>
+                            <label for="name" class="required">Nome do produto</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input id="category" type="text" name="category" class="validate" required>
+                            <label for="category" class="required">Categoria do produto</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input id="categoryLabel" type="text" name="categoryLabel" class="validate" required>
+                            <label for="categoryLabel" class="required">Rótulo da categoria</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input id="unit" type="text" name="unit" class="validate" required>
+                            <label for="unit" class="required">Unidade de medida</label>
+                        </div>
+                    </div>
+
+                    <h2 class="form-section-title">
+                        <i class="material-icons">image</i>
+                        Imagem e etiqueta
+                    </h2>
+
+                    <div class="input-field">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>Selecionar imagem</span>
+                                <input type="file" id="image" name="image" accept="image/*" required>
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Nenhuma imagem selecionada">
+                            </div>
+                        </div>
+                        <p class="form-hint">Envie uma imagem em JPG, PNG ou WebP. A imagem será exibida no card do produto.</p>
+                    </div>
+
+                    <div class="input-field">
+                        <input id="badge" type="text" name="badge" class="validate" required>
+                        <label for="badge" class="required">Etiqueta do produto</label>
+                    </div>
+
+                    <h2 class="form-section-title">
+                        <i class="material-icons">payments</i>
+                        Preços
+                    </h2>
+
+                    <div class="price-grid">
+                        <div class="input-field">
+                            <input id="price" type="text" name="price" class="validate" inputmode="decimal" required>
+                            <label for="price" class="required">Preço atual</label>
+                        </div>
+
+                        <div class="input-field">
+                            <input id="oldPrice" type="text" name="oldPrice" class="validate" inputmode="decimal" required>
+                            <label for="oldPrice" class="required">Preço antigo</label>
+                        </div>
+                    </div>
+
+                    <p class="form-hint">Use vírgula para separar os centavos. Exemplo: <strong>12,90</strong>.</p>
+
+                    <div class="form-actions">
+                        <button type="reset" class="btn-cancel">
+                            Limpar formulário
+                        </button>
+
+                        <button type="submit" class="btn btn-full">
+                            <i class="material-icons">check_circle</i>
+                            Cadastrar produto
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./product.js"></script>
+</body>
+
+</html>

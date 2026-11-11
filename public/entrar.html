@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Acesse sua conta e acompanhe pedidos, entregas e ofertas exclusivas.">
+    <title>Entrar | Verdinha</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        :root {
+            --verde: #31511f;
+            --verde-escuro: #203817;
+            --verde-medio: #4d702b;
+            --verde-claro: #edf5e8;
+            --lima: #a8df65;
+            --creme: #f8f7f1;
+            --branco: #ffffff;
+            --texto: #24331d;
+            --texto-claro: #687261;
+            --borda: #dce7d3;
+            --sombra: 0 10px 30px rgba(27, 48, 20, 0.10);
+            --sombra-forte: 0 18px 45px rgba(15, 35, 10, 0.20);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--texto);
+            background-color: var(--creme);
+            font-family: "DM Sans", Arial, Helvetica, sans-serif;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            clip-path: inset(50%);
+        }
+
+        .login-page {
+            display: grid;
+            min-height: 100vh;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        }
+
+        .login-visual {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 48px 56px;
+            color: var(--branco);
+            background:
+                linear-gradient(115deg,
+                    rgba(18, 45, 13, 0.93) 0%,
+                    rgba(28, 62, 18, 0.82) 48%,
+                    rgba(32, 75, 22, 0.65) 100%),
+                url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=80") center / cover no-repeat;
+        }
+
+        .login-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--branco);
+            font-size: 1.28rem;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+
+        .login-brand i {
+            color: var(--lima);
+            font-size: 28px;
+        }
+
+        .login-visual-content {
+            position: relative;
+            z-index: 1;
+            max-width: 560px;
+        }
+
+        .login-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-bottom: 18px;
+            padding: 8px 13px;
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.13);
+            color: #f6ffef;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .login-tag i {
+            font-size: 18px;
+            color: var(--lima);
+        }
+
+        .login-visual h1 {
+            margin: 0;
+            color: var(--branco);
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(2.35rem, 4vw, 3.7rem);
+            font-weight: 800;
+            line-height: 1.08;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.22);
+        }
+
+        .login-visual p {
+            max-width: 500px;
+            margin: 20px 0 0;
+            color: rgba(255, 255, 255, 0.89);
+            font-size: 1.03rem;
+            line-height: 1.7;
+        }
+
+        .login-highlights {
+            display: grid;
+            gap: 13px;
+            margin-top: 38px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 14px;
+            background-color: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+        }
+
+        .highlight-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 42px;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background-color: rgba(168, 223, 101, 0.22);
+            color: var(--lima);
+        }
+
+        .highlight-item strong {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .highlight-item small {
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.78rem;
+        }
+
+        .login-visual-footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 38px;
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.78rem;
+        }
+
+        .login-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 28px;
+        }
+
+        .login-card {
+            width: min(100%, 470px);
+            padding: 38px 34px;
+            border: 1px solid var(--borda);
+            border-radius: 24px;
+            background-color: var(--branco);
+            box-shadow: var(--sombra-forte);
+        }
+
+        .login-card-header {
+            margin-bottom: 27px;
+        }
+
+        .login-eyebrow {
+            display: inline-block;
+            margin-bottom: 8px;
+            color: var(--verde-medio);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .login-card h2 {
+            margin: 0;
+            color: var(--verde-escuro);
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(1.9rem, 3vw, 2.35rem);
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .login-card-header p {
+            margin: 10px 0 0;
+            color: var(--texto-claro);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+            color: var(--verde-escuro);
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+
+        .form-label i {
+            color: var(--verde-medio);
+            font-size: 20px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.leading-icon {
+            position: absolute;
+            left: 15px;
+            color: var(--verde-medio);
+            font-size: 21px;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            min-height: 52px;
+            padding: 0 15px 0 48px;
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            background-color: var(--creme);
+            color: var(--texto);
+            font-size: 0.95rem;
+            transition:
+                border-color 0.2s ease,
+                background-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-input::placeholder {
+            color: #9aa690;
+        }
+
+        .form-input:focus {
+            outline: 0;
+            border-color: var(--verde-medio);
+            background-color: var(--branco);
+            box-shadow: 0 0 0 3px rgba(77, 112, 43, 0.13);
+        }
+
+        .form-input:invalid:not(:placeholder-shown) {
+            border-color: #c96b6b;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--texto-claro);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .toggle-password:hover {
+            background-color: var(--verde-claro);
+            color: var(--verde);
+        }
+
+        .field-error {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            margin-top: 7px;
+            color: #b64747;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .field-error.visible {
+            display: flex;
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 4px 0 22px;
+            font-size: 0.84rem;
+        }
+
+        .remember-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--texto-claro);
+            font-weight: 600;
+        }
+
+        .remember-label input {
+            width: 17px;
+            height: 17px;
+            margin: 0;
+            accent-color: var(--verde-medio);
+        }
+
+        .forgot-link {
+            color: var(--verde);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .forgot-link:hover,
+        .create-account:hover {
+            color: var(--verde-medio);
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            min-height: 52px;
+            border: 0;
+            border-radius: 10px;
+            background-color: var(--lima);
+            color: var(--verde-escuro);
+            font-size: 0.95rem;
+            font-weight: 800;
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #96cd56;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(27, 48, 20, 0.14);
+        }
+
+        .btn-login:focus-visible {
+            outline: 3px solid rgba(77, 112, 43, 0.35);
+            outline-offset: 2px;
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 24px 0 18px;
+            color: var(--texto-claro);
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--borda);
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 11px;
+        }
+
+        .social-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 46px;
+            border: 1px solid var(--borda);
+            border-radius: 10px;
+            background-color: var(--branco);
+            color: var(--verde-escuro);
+            font-size: 0.86rem;
+            font-weight: 700;
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .social-button:hover {
+            border-color: var(--verde-medio);
+            background-color: var(--verde-claro);
+            transform: translateY(-2px);
+        }
+
+        .create-account {
+            margin: 25px 0 0;
+            color: var(--texto-claro);
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        .create-account a {
+            color: var(--verde);
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .form-alert {
+            display: none;
+            align-items: flex-start;
+            gap: 9px;
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border: 1px solid #f0c8c8;
+            border-radius: 12px;
+            background-color: #fff5f5;
+            color: #a84242;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .form-alert.visible {
+            display: flex;
+        }
+
+        .form-alert i {
+            margin-top: 1px;
+            font-size: 19px;
+        }
+
+        .form-success {
+            display: none;
+            align-items: flex-start;
+            gap: 9px;
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border: 1px solid #b8d8a6;
+            border-radius: 12px;
+            background-color: var(--verde-claro);
+            color: var(--verde-escuro);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .form-success.visible {
+            display: flex;
+        }
+
+        .form-success i {
+            margin-top: 1px;
+            color: var(--verde-medio);
+            font-size: 19px;
+        }
+
+        .loading .btn-login {
+            pointer-events: none;
+            opacity: 0.72;
+        }
+
+        .loading .btn-login .button-label {
+            display: none;
+        }
+
+        .loading .btn-login .button-loading {
+            display: inline-flex;
+        }
+
+        .button-loading {
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 17px;
+            height: 17px;
+            border: 2px solid rgba(32, 56, 23, 0.25);
+            border-top-color: var(--verde-escuro);
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .login-page {
+                grid-template-columns: 1fr;
+            }
+
+            .login-visual {
+                min-height: 380px;
+                padding: 38px 28px;
+            }
+
+            .login-highlights {
+                display: none;
+            }
+
+            .login-panel {
+                padding: 38px 20px 52px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .login-visual {
+                min-height: 330px;
+                padding: 30px 22px;
+            }
+
+            .login-brand {
+                font-size: 1.05rem;
+            }
+
+            .login-brand i {
+                font-size: 24px;
+            }
+
+            .login-visual h1 {
+                font-size: 2.15rem;
+            }
+
+            .login-visual p {
+                font-size: 0.92rem;
+            }
+
+            .login-card {
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .social-login {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="login-page">
+        <section class="login-visual" aria-labelledby="login-title">
+            <a class="login-brand" href="/" aria-label="Voltar para a página inicial da Verdinha">
+                <i class="material-icons" aria-hidden="true">eco</i>
+                Verdinha
+            </a>
+
+            <div class="login-visual-content">
+                <span class="login-tag">
+                    <i class="material-icons" aria-hidden="true">local_shipping</i>
+                    Entrega rápida e produtos frescos
+                </span>
+
+                <h1 id="login-title">Bem-vindo de volta à sua feira online</h1>
+
+                <p>
+                    Acesse sua conta para acompanhar pedidos, salvar endereços de entrega,
+                    revisar favoritos e aproveitar ofertas selecionadas.
+                </p>
+
+                <div class="login-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon" aria-hidden="true">
+                            <i class="material-icons">shopping_bag</i>
+                        </span>
+                        <div>
+                            <strong>Acompanhe seus pedidos</strong>
+                            <small>Veja o status e o histórico das suas compras</small>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <span class="highlight-icon" aria-hidden="true">
+                            <i class="material-icons">favorite</i>
+                        </span>
+                        <div>
+                            <strong>Salve seus favoritos</strong>
+                            <small>Encontre rapidamente os produtos que você mais gosta</small>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <span class="highlight-icon" aria-hidden="true">
+                            <i class="material-icons">bolt</i>
+                        </span>
+                        <div>
+                            <strong>Finalize com mais agilidade</strong>
+                            <small>Checkout mais rápido com seus dados salvos</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="login-visual-footer">
+                Produtos selecionados com cuidado, do campo até a sua casa.
+            </p>
+        </section>
+
+        <section class="login-panel" aria-labelledby="form-title">
+            <div class="login-card">
+                <header class="login-card-header">
+                    <span class="login-eyebrow">Acesso do Vendedor</span>
+                    <h2 id="form-title">Entrar na sua conta</h2>
+                    <p>Informe seus dados para continuar suas compras.</p>
+                </header>
+
+                <div class="form-alert" id="formAlert" role="alert" aria-live="assertive">
+                    <i class="material-icons" aria-hidden="true">error_outline</i>
+                    <span id="formAlertText">Não foi possível entrar. Verifique seus dados e tente novamente.</span>
+                </div>
+
+                <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+                    <i class="material-icons" aria-hidden="true">check_circle</i>
+                    <span>Login realizado com sucesso. Redirecionando…</span>
+                </div>
+
+                <form id="formEntrar" novalidate>
+                    <div class="form-field">
+                        <label class="form-label" for="email">
+                            <span>E-mail</span>
+                            <i class="material-icons" aria-hidden="true">mail_outline</i>
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="material-icons leading-icon" aria-hidden="true">person_outline</i>
+                            <input
+                                class="form-input"
+                                id="email"
+                                name="email"
+                                type="email"
+                                autocomplete="email"
+                                inputmode="email"
+                                placeholder="seu@email.com"
+                                aria-describedby="emailError"
+                                required
+                            >
+                        </div>
+
+                        <p class="field-error" id="emailError">
+                            <i class="material-icons" aria-hidden="true">info</i>
+                            Informe um e-mail válido.
+                        </p>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label" for="senha">
+                            <span>Senha</span>
+                            <i class="material-icons" aria-hidden="true">lock_outline</i>
+                        </label>
+
+                        <div class="input-wrapper">
+                            <i class="material-icons leading-icon" aria-hidden="true">lock_outline</i>
+                            <input
+                                class="form-input"
+                                id="senha"
+                                name="senha"
+                                type="password"
+                                autocomplete="current-password"
+                                placeholder="Digite sua senha"
+                                aria-describedby="senhaError"
+                                minlength="6"
+                                required
+                            >
+                            <button
+                                class="toggle-password"
+                                id="toggleSenha"
+                                type="button"
+                                aria-label="Mostrar senha"
+                                aria-pressed="false"
+                            >
+                                <i class="material-icons" id="toggleSenhaIcon" aria-hidden="true">visibility</i>
+                            </button>
+                        </div>
+
+                        <p class="field-error" id="senhaError">
+                            <i class="material-icons" aria-hidden="true">info</i>
+                            A senha deve ter pelo menos 6 caracteres.
+                        </p>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-label" for="lembrar">
+                            <input id="lembrar" name="lembrar" type="checkbox">
+                            Manter conectado
+                        </label>
+
+                        <a class="forgot-link" href="./recuperar-senha.html">
+                            Esqueci minha senha
+                        </a>
+                    </div>
+
+                    <button class="btn-login" type="submit">
+                        <span class="button-label">Acessar</span>
+                        <span class="button-loading" aria-hidden="true">
+                            <span class="spinner"></span>
+                            Entrando…
+                        </span>
+                    </button>
+                </form>
+
+               
+
+                <p class="create-account">
+                    Ainda não tem uma conta?
+                    <a href="./cadastro.html">Criar conta</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script src="./entrar.js"></script>
+</body>
+</html>

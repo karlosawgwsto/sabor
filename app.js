@@ -1,47 +1,60 @@
-const productController = require("./controllers/product.controller.js");
-const express = require("express");
+ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
-const fs = require("fs"); //!
+const fs = require("fs");
 
-const uploadDir = path.join(__dirname, '/uploads'); // 3. definir pasta 
-//4. verifica se a pasta de de arquivos não existe no servidor
+const uploadDir = path.join(__dirname, '/uploads'); //3. Definir pasta: /sabor/uploads
+//Verifica se a pasta de arquivos não existe no servidor
 if(!fs.existsSync(uploadDir)){
-    fs.mkdir(uploadDir); //5... se não existir ele cria ela
+     fs.mkdir(uploadDir);//5... se não existir ele cria ela.
 }
 
-//IMPORTA AS ROTAS A SEREM USADAS
+//Importa as rotas a serem usadas
 const rotasVendedor = require("./routes/vendedor.route.js");
-const rotasProduct = require("./routes/product.route.js");
+const rotasProduto = require("./routes/product.route.js");
 const rotasCooperativa = require("./routes/cooperativa.route.js");
 const rotasCooperativaVendedor = require("./routes/cooperativa_vendedor.route.js");
-const { url } = require("inspector");
-const ProductController = require("./controllers/product.controller.js");
 
-const app = express();
+const app = express();//Inicializa o servidor express
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(helmet());
+app.use(helmet());//Protege o cabeçalho das request
 app.use(cors());
 app.use(morgan('dev'));
 
-//CRIA UM PONTO PARA O USO DAS ROTAS
+//Cria um ponto para uso das Rotas
 app.use("/api", rotasVendedor);
-app.use("/api", rotasProduct);
+app.use("/api", rotasProduto);
 app.use("/api", rotasCooperativa);
 app.use("/api", rotasCooperativaVendedor);
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                imgSrc: [ "'self'", "data:", "blob:" ],
+                //scriptSrc: [ "'self'" ], //Script Source = Origem dos Scripts ; Self = do próprio servidor/projeto
+                //styleSrc: [ "'self'", "'unsafe-inline'" ],
+                //connectSrc: [ "'self'" ],
+                //objectSrc: [ "'none'" ],
+                baseUri: [ "'self'" ],
+                formAction: [ "'self'" ],
+                frameAncestors: [ "'self'" ]
+            }
+        }
+    })
+);
 
-app.get("/status", async (req, res) => {
-    res.json({ mensagem: "Funcionamento", status: 200 });
+app.get("/status", async (req, res)=>{
+    res.json({mensagem: "Funcionando", status: 200});
 });
 
-//9. faz o express usar o diretório de uploads 
+//9. Faz o express usar o diretório de uploads
 app.use('/uploads', express.static(uploadDir));
 
-app.listen(3000, () => console.log('ok'));
+app.listen(3000, ()=> console.log('OK'));
 
-app.use(express.urlencoded({ extended: true }));
-
+app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, "public")));

@@ -22,7 +22,9 @@ formEntrar.addEventListener("submit", async(Event) =>{
         console.log(resultado);
         //mostra um alerta com uma mensagem
         alert(resultado.mensagem);
-        formEntr.reset(); //zera todos os campos do formulario HTML
+        formEntrar.reset(); //zera todos os campos do formulario HTML
+
+        window.location.href=  'painel.html';
     } catch (error) {
         console.log(error);
 

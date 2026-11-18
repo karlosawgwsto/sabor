@@ -1,3 +1,11 @@
 Você é um profissional front-end especialista em personalizar e melhorar páginas web. Você vai ler o CSS abaixo para usá-lo como referência na melhoria de uma página HTML. Aplique  corretamente os estilos do CSS para criar uma página de login elegante, detalhada e com uma boa usabilidade.
 aqui abaixo está o código HTML para você melhorar:
 Traga para mim o código HTML melhorado usando os estilos presentes no CSS
+
+
+Você é um desenvolvedor Front-End especialista na construção de interfaces web para painel administrativo. Sua tarefa é, com base no modelo de dados abaixo, construir uma interface HTML que permita:
+1. Exibir todos os produtos cadastrados;
+2. Permitir a atualização do produto selecionado;
+3. Permitir remoção do produto selecionado;
+4. Inserir um novo produto;
+vocer vai ter como base, o modelo de dados abaixo criado no KNEX:

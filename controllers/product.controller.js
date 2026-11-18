@@ -1,7 +1,6 @@
 const db = require("../configs/database.js");
 
 const ProductController = {
-
     /**
      * Função para cadastro de produtos
      * @param {*} req 
@@ -11,8 +10,10 @@ const ProductController = {
         if (!req.file) {
             return res.status(400).json({ error: "Imagem não enviada" });
         }
+
         try {
-            const { name,
+            const {
+                name,
                 category,
                 categoryLabel,
                 unit,
@@ -20,12 +21,13 @@ const ProductController = {
                 oldPrice,
                 badge
             } = req.body;
+
             const image = req.file;
 
             const dados = {
-                Image: `/uploads/${image.filename}`,
+                image: `/uploads/${image.filename}`,
                 name: name,
-                category:category,
+                category: category,
                 categoryLabel: categoryLabel,
                 unit: unit,
                 price: normalizar(price),
@@ -34,6 +36,7 @@ const ProductController = {
             };
 
             const [id] = await db('products').insert(dados);
+
             res.status(201).json({ mensagem: "produto cadastrado", id });
         } catch (error) {
             res.status(500).json({
@@ -41,6 +44,7 @@ const ProductController = {
                 erro: error.message
             })
         }
+
     },
     /**
      * Função para listar os produtos cadastrados
@@ -57,9 +61,47 @@ const ProductController = {
      * @param {*} res 
      */
     async atualizar(req, res) {
-        await db('products').where({ id: req.params.id }).update(req.body);
+       
+        try {
+            const {
+                name,
+                category,
+                categoryLabel,
+                unit,
+                price,
+                oldPrice,
+                badge
+            } = req.body;
 
-        res.json({ mensagem: "Produto atualizado!" });
+            const image = req.file;
+
+            const dados = {
+                name: name,
+                category: category,
+                categoryLabel: categoryLabel,
+                unit: unit,
+                price: normalizar(price),
+                oldPrice: normalizar(oldPrice),
+                badge: badge
+            };
+
+            if(req.file){
+                dados.image = `/uploads/${image.filename}`;
+            }
+
+            console.log(`Dados recebidos: \n${JSON.stringify({ dados, image }, null, 2)}`)
+
+            await db('products')
+                .where({ id: req.params.id })
+                .update(dados);
+
+            res.status(201).json({ mensagem: "produto atualizado", id: req.params.id });
+        } catch (error) {
+            res.status(500).json({
+                mensagem: "erro ao cadastrar produto",
+                erro: error.message
+            })
+        }
     },
     /**
      * Função para remover produto
@@ -67,13 +109,17 @@ const ProductController = {
      * @param {*} res 
      */
     async apagar(req, res) {
-        await db('products').where({ id: req.params.id }).del();
+        await db('products')
+            .where({ id: req.params.id })
+            .del();
         res.json({ mensagem: "Produto removido!" });
     },
 };
-//função para transformar texto em numero
+
+//Função para transformar texto em número
 function normalizar(numero) {
     let auxiliar = numero.replace(",", ".");
     return Number(auxiliar);
 }
+
 module.exports = ProductController;

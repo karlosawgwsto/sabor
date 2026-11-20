@@ -1,11 +1,13 @@
+require('dotenv').config();
+
 const knex = require('knex')({
     client: 'mysql2',
     connection: {
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: 'Senac2019',
-        database: 'sabor_tapajos'
+        host: process.env.DB_HOST || 'localhost',
+        port: process.env.DB_PORT,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME
     }
 });
 
